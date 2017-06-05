@@ -8,42 +8,57 @@ import java.util.Properties;
 
 public class ReadObject {
 
-	
-	
 	Properties p = new Properties();
- 
-	public Properties getObjectRepository() throws IOException{
-		//Read object repository file
-		InputStream stream = new FileInputStream(new File(System.getProperty("user.dir")+"\\src\\objects\\object.properties"));
-		//load all objects
+
+	public Properties getObjectRepository() throws IOException {
+		// Read object repository file
+		InputStream stream = new FileInputStream(
+				new File(System.getProperty("user.dir") + "\\src\\objects\\object.properties"));
+		// load all objects
 		p.load(stream);
-		 return p;
+		return p;
 	}
-	
-	public Properties getXpathObject(){
+
+	public Properties getXpathObject() {
 		Properties p = new Properties();
-		try{
-			//Read object repository file
-			InputStream stream = new FileInputStream(new File(System.getProperty("user.dir")+"\\src\\objects\\xpathObject.properties"));
-			//load all objects
+		try {
+			// Read object repository file
+			InputStream stream = new FileInputStream(
+					new File(System.getProperty("user.dir") + "\\src\\objects\\xpathObject.properties"));
+			// load all objects
 			p.load(stream);
-		}catch(Exception ex){
-			System.out.println(this.getClass().getName()+ " " + ex);
+		} catch (Exception ex) {
+			System.out.println(this.getClass().getName() + " " + ex);
 		}
 		return p;
 	}
-	
-	public Properties getUrlObject(){
+
+	public Properties getUrlObject() {
 		Properties p = new Properties();
-		try{
-			//Read object repository file
-			InputStream stream = new FileInputStream(new File(System.getProperty("user.dir")+"\\src\\objects\\urlObject.properties"));
-			//load all objects
+		try {
+			// Read object repository file
+			InputStream stream = new FileInputStream(
+					new File(System.getProperty("user.dir") + "\\src\\objects\\urlObject.properties"));
+			// load all objects
 			p.load(stream);
-		}catch(Exception ex){
-			System.out.println(this.getClass().getName()+ " " + ex);
+		} catch (Exception ex) {
+			System.out.println(this.getClass().getName() + " " + ex);
 		}
 		return p;
 	}
-	
+
+	public Properties getConfigObject() {
+		Properties p = new Properties();
+		try {
+			// Read object repository file
+			InputStream stream = new FileInputStream(
+					new File(System.getProperty("user.dir") + "\\src\\objects\\config.properties"));
+			// load all objects
+			p.load(stream);
+		} catch (Exception ex) {
+			System.out.println(this.getClass().getName() + " " + ex);
+		}
+		return p;
+	}
+
 }
