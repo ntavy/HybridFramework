@@ -2,11 +2,8 @@ package testCases;
 
 import java.util.concurrent.TimeUnit;
 
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
@@ -21,8 +18,6 @@ public class TestCase1 {
 	private WebDriver driver;
 	private MenuObject menu;
 
-	private int timeSecondWaitDefault = 10;
-
 	@BeforeTest
 	public void setup() {
 		if (CommonUtils.driver == null) {
@@ -30,6 +25,12 @@ public class TestCase1 {
 		}
 		driver = CommonUtils.driver;
 		menu = new MenuObject();
+		CommonUtils.signInSystem();
+	}
+
+	@Test
+	public void test() {
+		System.out.println("abc");
 	}
 
 	@Test
@@ -50,16 +51,15 @@ public class TestCase1 {
 		Assert.assertNotNull(menu.getSubMenuByName(Constants.PUBLIC_HOLIDAY));
 		menu.getMenuCourseManagement().click();
 		Assert.assertNotNull(menu.getSubMenuByName(Constants.TEST_RESULT));
+		System.out.println("hello");
 
 	}
 
 	@Test
 	public void testTestCase1() {
 		try {
-			// wait for menu appear
-			WebDriverWait wait = new WebDriverWait(driver, 60);
-			wait.until(ExpectedConditions
-					.visibilityOfElementLocated(By.xpath(CommonUtils.xpathObjects.getProperty("menuList"))));
+			// wait for menu display
+			CommonUtils.waitUntilVisibility(CommonUtils.xpathObjects.getProperty("menuList"));
 
 			// click Admin Menu
 			WebElement menuAdmin = menu.getMenuAdmin();
@@ -69,10 +69,13 @@ public class TestCase1 {
 			// test click sub menu
 			WebElement subAdminMenu = menu.getSubMenuByName(Constants.ROLE_MENU);
 			subAdminMenu.click();
-			wait.until(ExpectedConditions
-					.visibilityOfElementLocated(By.xpath(CommonUtils.xpathObjects.getProperty("searchInputRole"))));
+
+			// wait for search input role display
+			CommonUtils.waitUntilVisibility(CommonUtils.xpathObjects.getProperty("searchInputRole"));
+
 			RoleObject roleObject = new RoleObject();
 			Assert.assertFalse(roleObject.isExistRoleName("aaa"));
+
 		} catch (Exception ex) {
 			ex.printStackTrace();
 			;
