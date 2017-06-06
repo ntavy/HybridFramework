@@ -25,7 +25,7 @@ public class TestCase1 {
 		}
 		driver = CommonUtils.driver;
 		menu = new MenuObject();
-		CommonUtils.signInSystem();
+		// CommonUtils.signInSystem();
 	}
 
 	@Test
