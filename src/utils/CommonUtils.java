@@ -51,6 +51,13 @@ public class CommonUtils {
 
 	}
 
+	public static boolean checkIsLogged() {
+		if (driver.findElement(By.xpath(xpathObjects.getProperty("loggedLink"))) != null)
+			return true;
+		return false;
+
+	}
+
 	public static void waitImplicitly(long second) {
 		driver.manage().timeouts().implicitlyWait(3, TimeUnit.SECONDS);
 	}

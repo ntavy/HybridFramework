@@ -25,7 +25,8 @@ public class TestCase1 {
 		}
 		driver = CommonUtils.driver;
 		menu = new MenuObject();
-		// CommonUtils.signInSystem();
+		if (!CommonUtils.checkIsLogged())
+			CommonUtils.signInSystem();
 	}
 
 	@Test
@@ -78,16 +79,17 @@ public class TestCase1 {
 
 		} catch (Exception ex) {
 			ex.printStackTrace();
-			;
 		}
 
 	}
 
-	// @Test
+	@Test
 	public void testTestCase2() {
 		try {
 
-			driver.get("http://localhost:8080/hrms/employee/list");
+			menu.getMenuEmployee().click();
+			menu.getSubMenuByName(Constants.EMPLOYEE_LIST_MENU).click();
+			CommonUtils.waitUntilVisibility("numberofEmployeeShowing");
 			EmployeeObject employeeObject = new EmployeeObject();
 			employeeObject.selectByText("Bern Dept.");
 
