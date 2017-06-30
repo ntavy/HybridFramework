@@ -8,12 +8,18 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
 import utils.CommonUtils;
+import utils.Operations;
 
 public class MenuObject {
-	private WebDriver driver = CommonUtils.driver;
+
+	private WebDriver driver;
+
+	public MenuObject(WebDriver driver) {
+		this.driver = driver;
+	}
 
 	public List<WebElement> getMenuList() {
-		List<WebElement> listMenu = driver.findElements(By.xpath(CommonUtils.xpathObjects.getProperty("menuList")));
+		List<WebElement> listMenu = Operations.getElementListByXPath(driver, "menuList");
 		return listMenu;
 	}
 

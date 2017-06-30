@@ -9,7 +9,6 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-import operation.BrowserService;
 import operation.ReadObject;
 
 public class CommonUtils {
@@ -25,7 +24,7 @@ public class CommonUtils {
 		// setup webdriver
 		String browser = configObjects.getProperty("browser");
 		if (browser.equals("chrome")) {
-			BrowserService browserService = new BrowserService();
+			BrowserUtils browserService = new BrowserUtils();
 			driver = browserService.getChromeWebDriver();
 		} else if (browser.equals("firefox")) {
 			System.setProperty("webdriver.gecko.driver", configObjects.getProperty("gecko"));
@@ -40,22 +39,22 @@ public class CommonUtils {
 		wait = new WebDriverWait(driver, 60);
 	}
 
-	public static void signInSystem() {
-		driver.findElement(By.xpath(xpathObjects.getProperty("username")))
-				.sendKeys(configObjects.getProperty("username"));
-		driver.findElement(By.xpath(xpathObjects.getProperty("password")))
-				.sendKeys(configObjects.getProperty("password"));
-		driver.findElement(By.xpath(xpathObjects.getProperty("searchButton"))).click();
-		waitUntilVisibility(xpathObjects.getProperty("loggedLink"));
-		System.out.println("Logged successfully");
+	public static WebDriver getDriver() {
 
-	}
+		// setup webdriver
+		String browser = configObjects.getProperty("browser");
+		if (browser.equals("chrome")) {
+			BrowserUtils browserService = new BrowserUtils();
+			driver = browserService.getChromeWebDriver();
+		} else if (browser.equals("firefox")) {
+			System.setProperty("webdriver.gecko.driver", configObjects.getProperty("gecko"));
+			driver = new FirefoxDriver();
+		}
 
-	public static boolean checkIsLogged() {
-		if (driver.findElement(By.xpath(xpathObjects.getProperty("loggedLink"))) != null)
-			return true;
-		return false;
-
+		// navigate to hrms
+		driver.get(urlObjects.getProperty("urlHrms"));
+		driver.manage().window().maximize();
+		return driver;
 	}
 
 	public static void waitImplicitly(long second) {
