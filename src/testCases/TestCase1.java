@@ -2,6 +2,7 @@ package testCases;
 
 import java.util.concurrent.TimeUnit;
 
+import org.apache.log4j.Logger;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.testng.Assert;
@@ -16,18 +17,23 @@ import pages.Role_Page;
 import utils.BrowserUtils;
 import utils.CommonUtils;
 import utils.Constants;
+import utils.Log;
 
 public class TestCase1 {
-	private WebDriver driver = BrowserUtils.getBroswer();
-	private MenuObject menu = new MenuObject(driver);
+	private Logger logger = Logger.getLogger(TestCase1.class.getName());
+	private WebDriver driver = null;
+	private MenuObject menu = null;
 
 	@BeforeTest
 	public void setup() {
+		driver = BrowserUtils.getBroswer();
+		menu = new MenuObject(driver);
 		SetUp_Action.setUp(menu, driver);
 	}
 
 	@Test
 	public void testClickAllMenu() {
+		Log.startTestCase(logger, "testClickAllMenu");
 		menu.getMenuAdmin().click();
 		Assert.assertNotNull(menu.getSubMenuByName(Constants.ROLE_MENU));
 
@@ -51,6 +57,7 @@ public class TestCase1 {
 
 		menu.getMenuCourseManagement().click();
 		Assert.assertNotNull(menu.getSubMenuByName(Constants.TEST_RESULT));
+		Log.endTestCase(logger, "testClickAllMenu");
 
 	}
 

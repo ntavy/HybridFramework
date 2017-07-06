@@ -3,6 +3,7 @@ package utils;
 import java.util.Properties;
 import java.util.concurrent.TimeUnit;
 
+import org.apache.log4j.Logger;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
@@ -12,6 +13,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import operation.ReadObject;
 
 public class CommonUtils {
+	private static Logger logger = Logger.getLogger(CommonUtils.class.getName());
 
 	public static WebDriver driver = null;
 	public static final ReadObject object = new ReadObject();
@@ -62,6 +64,11 @@ public class CommonUtils {
 	}
 
 	public static void waitUntilVisibility(String xPathLocator) {
-		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(xPathLocator)));
+		try {
+			wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(xPathLocator)));
+		} catch (Exception ex) {
+			logger.warn("Cannot find element");
+		}
+
 	}
 }
